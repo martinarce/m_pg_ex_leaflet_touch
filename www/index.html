@@ -10,7 +10,13 @@
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 </head>
 <body>
-	<div id="map" style="width: 600px; height: 400px"></div>
+    <div id="map" style="width: 600px; height: 400px"></div>
+
+    <form name="frmMap">
+          url: <input type="text" name="txtUrl"><br>
+          <input type="button" value="Por AJAX" onclick="sendUrl()">
+          <input type="button" value="Demo" onclick="sendUrl2()">
+    </form>
 
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script>
@@ -19,11 +25,14 @@
         var topologies;
         
         var remain = 30000;
-        //timeLeft();
-        timeLeft2();
+        //sendUrl();
+        //sendUrl2();
         //init();
-        
-        function timeLeft2() {
+
+        init();
+
+        function sendUrl2() {
+//            window.alert("url: " + window.document.frmMap.txtUrl.value);
             var allData = "";
         
             allData += "S|123456|-34.578|-58.486\n";
@@ -32,11 +41,11 @@
             readData(allData);
             fillElements();
 
-            setTimeout('timeLeft2()', remain );
+            setTimeout('sendUrl2()', remain );
         }
         
-        function timeLeft() {
-            var url = "";
+        function sendUrl() {
+            var url = window.document.frmMap.txtUrl.value;
             if (window.XMLHttpRequest) {
                 req = new XMLHttpRequest();
                 req.onreadystatechange = processReqChangeDummy;
@@ -52,7 +61,7 @@
                 }
             }
 
-            setTimeout('timeLeft()', remain );
+            setTimeout('sendUrl()', remain );
         }
 
         function processReqChangeDummy() {
@@ -102,8 +111,6 @@
         }
         
         function fillElements() {
-            init();
-
             try {
                 //cargamos los simbolos
                 var i = 0;
@@ -152,5 +159,7 @@
 //		map.on('click', onMapClick);
 
 	</script>
+    
+    
 </body>
 </html>
